@@ -36,6 +36,17 @@ app.post("/api/quotes", (req, res) => {
   }
 })
 
+app.delete("/api/quotes/:id/delete", (req, res) => {
+  const quoteToDelete = quotes.filter((quote) => quote.id === req.params.id)[0]
+
+  if (quoteToDelete) {
+    quotes.splice([quotes.indexOf(quoteToDelete)], 1)
+    res.send({ quote: quoteToDelete })
+  } else {
+    res.status(404).send()
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`)
 })
